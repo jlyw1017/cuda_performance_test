@@ -1,9 +1,12 @@
 #include <stdio.h>
+
+// Change differet block and thread to check the restults
 const int arraySize=20;
 const int Maxblock=10;
 const int Maxthread=10;
 __global__ void kernelfunction(int*a,int*b,int*c){
-    int tid = threadIdx.x+blockIdx.x*blockDim.x;//计算线程索引
+    int tid = threadIdx.x+blockIdx.x*blockDim.x;
+    // do something here
 	while(tid < arraySize){
 		c[tid] = a[tid]+b[tid];
 		tid += gridDim.x*blockDim.x;
