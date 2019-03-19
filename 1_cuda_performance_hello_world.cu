@@ -11,29 +11,29 @@ int main(void){
     int size =sizeof(int);
 // take the address of d_a,and cast into void**
 // 取d_a的地址（一个二级指针），然后类型转换成void**
-// Allocate space for device
 
 // Create Status for error check
     cudaError_t cudastatus;
-
+// Allocate space for device
     cudastatus=cudaMalloc((void **)&d_a, size);
     cudastatus=cudaMalloc((void **)&d_b, size);
     cudastatus=cudaMalloc((void **)&d_c, size);
     
     a = 1;
     b = 2;
-
+// Start Timing
     cudaEvent_t start, stop;
     float timeall;
     cudastatus=cudaEventCreate(&start);
     cudastatus=cudaEventCreate(&stop);
     cudastatus=cudaEventRecord( start, 0 );
-
+// CopyToGPU
     cudastatus=cudaMemcpy(d_a,&a,size,cudaMemcpyHostToDevice);
     cudastatus=cudaMemcpy(d_b,&b,size,cudaMemcpyHostToDevice);
     kernelfunction<<<1,1>>>(d_a,d_b,d_c);
     cudastatus=cudaMemcpy(&c,d_c,size,cudaMemcpyDeviceToHost);
 
+// Timing
     cudastatus=cudaEventRecord( stop, 0 );
     cudastatus=cudaEventSynchronize( stop );
     cudastatus=cudaEventElapsedTime( &timeall, start, stop );
