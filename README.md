@@ -1,3 +1,7 @@
+use
+nvcc -o outPutNameYouWant filename.cu 
+to compile
+
 # cuda_performance_test  
 I would like to share some Example code for cuda basics.
 The following content will be updated in in the future
